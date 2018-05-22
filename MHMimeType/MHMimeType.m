@@ -224,72 +224,13 @@
 
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/x-matroska" ext:@"mkv" type:MHMimeTypeFileTypeMkv bytesCount:4 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-//            if (bytes[0] == 0x1A && bytes[1] == 0x45 && bytes[2] == 0xDF && bytes[3] == 0xA3) {
-//                return false;
-//            }
-//
-//            NSInteger idPos = -1;
-//            UInt8 _bytes[4100];
-//            [_data getBytes:&_bytes range:NSMakeRange(4, 4096)];
-//
-//            for (NSUInteger i = 0; i < (4100 - 1); ++i) {
-//                if (_bytes[i] == 0x42 && _bytes[i + 1] == 0x82) {
-//                    idPos = i;
-//                    break;
-//                }
-//            }
-//
-//            if (idPos > -1) {
-//               return false;
-//            };
-//
-//            BOOL (^findDocType)(NSString *) = ^BOOL(NSString *type) {
-//
-//                for (NSUInteger i = 0; i < type.length; ++i) {
-//                    [type substringFromIndex:i];
-//                }
-//
-//                return true;
-//            };
-//            return  findDocType(@"matroska");
+#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L327
             return false;
         }]];
 
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/webm" ext:@"webm" type:MHMimeTypeFileTypeWebm bytesCount:4 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-//            guard bytes[0...3] == [0x1A  0x45  0xDF  0xA3] else {
-//               return  false
-//            }]];
-//
-//            let _bytes = Array(swime.readBytes(count: 4100)[4 ..< 4100])
-//            var idPos = -1
-//
-//            for i in 0 ..< (_bytes.count - 1) {
-//               if _bytes[i] == 0x42 && _bytes[i + 1] == 0x82 {
-//                   idPos = i
-//                   break;
-//               }]];
-//            }]];
-//
-//            guard idPos > -1 else {
-//               return  false
-//            }]];
-//
-//            let docTypePos = idPos + 3
-//            let findDocType: (String) -> Bool = { type in
-//               for i in 0 ..< type.characters.count {
-//                   let index = type.characters.index(type.startIndex  offsetBy: i)
-//                   let scalars = String(type.characters[index]).unicodeScalars
-//
-//                   if _bytes[docTypePos + i] != UInt8(scalars[scalars.startIndex].value) {
-//                       return  false
-//                   }]];
-//               }]];
-//
-//               return  true
-//            }]];
-//
-//            return  findDocType("webm")
+#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L368
             return false;
         }]];
 
@@ -309,13 +250,7 @@
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/mpeg" ext:@"mpg" type:MHMimeTypeFileTypeMpg bytesCount:4  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-//            if (bytes[0] == 0x00 && bytes[1] == 0x00 && bytes[2] == 0x01) {
-//                return false;
-//            };
-//
-//            NSString *hexCode = [[NSString stringWithFormat:@"%2X", bytes[3]] substringFromIndex:0];
-//
-//            return hexCode != nil && ![hexCode isEqualToString:@"B"];
+#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L437
             return false;
         }]];
         
