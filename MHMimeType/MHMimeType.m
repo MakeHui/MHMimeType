@@ -280,8 +280,11 @@
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/mpeg" ext:@"mpg" type:MHMimeTypeFileTypeMpg bytesCount:4  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L437
-            return false;
+            if (! (bytes[0] == 0x00 && bytes[1] == 0x00 && bytes[2] == 0x01)) {
+                return false;
+            }
+            NSString *hexCode = [NSString stringWithFormat:@"%2X", bytes[3]];
+            return hexCode.length && [[hexCode substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"B"];
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"audio/mpeg" ext:@"mp3" type:MHMimeTypeFileTypeMp3 bytesCount:3  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
