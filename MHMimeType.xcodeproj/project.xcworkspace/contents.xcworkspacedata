@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MHMimeTypeDemo.xcodeproj">
+      location = "self:MHMimeType.xcodeproj">
    </FileRef>
 </Workspace>

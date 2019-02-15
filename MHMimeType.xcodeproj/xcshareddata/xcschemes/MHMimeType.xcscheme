@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E3155AA20B402F800366301"
+               BlueprintIdentifier = "7C7BDA9F2216AEB800E31510"
                BuildableName = "MHMimeType.framework"
                BlueprintName = "MHMimeType"
-               ReferencedContainer = "container:MHMimeTypeDemo.xcodeproj">
+               ReferencedContainer = "container:MHMimeType.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7C7BDAA82216AEB800E31510"
+               BuildableName = "MHMimeTypeTests.xctest"
+               BlueprintName = "MHMimeTypeTests"
+               ReferencedContainer = "container:MHMimeType.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7C7BDA9F2216AEB800E31510"
+            BuildableName = "MHMimeType.framework"
+            BlueprintName = "MHMimeType"
+            ReferencedContainer = "container:MHMimeType.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,10 +64,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1E3155AA20B402F800366301"
+            BlueprintIdentifier = "7C7BDA9F2216AEB800E31510"
             BuildableName = "MHMimeType.framework"
             BlueprintName = "MHMimeType"
-            ReferencedContainer = "container:MHMimeTypeDemo.xcodeproj">
+            ReferencedContainer = "container:MHMimeType.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -63,10 +82,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1E3155AA20B402F800366301"
+            BlueprintIdentifier = "7C7BDA9F2216AEB800E31510"
             BuildableName = "MHMimeType.framework"
             BlueprintName = "MHMimeType"
-            ReferencedContainer = "container:MHMimeTypeDemo.xcodeproj">
+            ReferencedContainer = "container:MHMimeType.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

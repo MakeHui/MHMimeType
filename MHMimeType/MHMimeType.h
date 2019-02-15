@@ -1,9 +1,9 @@
 //
 //  MHMimeType.h
-//  MHMimeTypeDemo
+//  MHMimeType
 //
-//  Created by MakeHui on 2018/5/14.
-//  Copyright © 2018年 MakeHui. All rights reserved.
+//  Created by MakeHui on 15/2/19.
+//  Copyright © 2019年 MakeHui. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -99,12 +99,20 @@ typedef BOOL (^MHMimeTypeMatchesBlock)(UInt8 *bytes, MHMimeTypeModel *model);
 
 @interface MHMimeType : NSObject
 
-@property(nonatomic, strong)MHMimeTypeModel *currentMimeTypeModel;
+@property(nonatomic, strong)MHMimeTypeModel *currentMimeTypeModel __attribute__((deprecated("Remove.")));
 
-+ (instancetype)initWithData:(NSData *)data;
++ (instancetype)sharedInstance;
 
-+ (instancetype)initWithURL:(NSURL *)url;
+- (MHMimeTypeModel *)mimeTypeModelWithData:(NSData *)data;
 
-+ (instancetype)initWithPath:(NSString *)path;
+- (MHMimeTypeModel *)mimeTypeModelWithURL:(NSURL *)url;
+
+- (MHMimeTypeModel *)mimeTypeModelWithPath:(NSString *)path;
+
++ (instancetype)initWithData:(NSData *)data __attribute__((deprecated("Use mimeTypeModelWithData: instead."))) ;
+
++ (instancetype)initWithURL:(NSURL *)url __attribute__((deprecated("Use mimeTypeModelWithURL: instead.")));
+
++ (instancetype)initWithPath:(NSString *)path __attribute__((deprecated("Use mimeTypeModelWithPath: instead.")));
 
 @end

@@ -45,19 +45,26 @@
 
 @interface MHMimeType ()
 
-@property(nonatomic, strong)NSData *data;
-
 @property(nonatomic, strong)NSArray<MHMimeTypeModel *> *mimeTypeModelArray;
 
 @end
 
 @implementation MHMimeType
 
++ (instancetype)sharedInstance
+{
+    static id _sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[self alloc] init];
+    });
+    return _sharedInstance;
+}
+
 + (instancetype)initWithData:(NSData *)data
 {
     MHMimeType *mimeType = [MHMimeType new];
-    [mimeType setData:data];
-    [mimeType initData];
+    [mimeType parseWithData:data];
     
     return mimeType;
 }
@@ -65,8 +72,8 @@
 + (instancetype)initWithURL:(NSURL *)url
 {
     MHMimeType *mimeType = [MHMimeType new];
-    [mimeType setData:[[NSData alloc] initWithContentsOfURL:url]];
-    [mimeType initData];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    [mimeType parseWithData:data];
     
     return mimeType;
 }
@@ -74,24 +81,47 @@
 + (instancetype)initWithPath:(NSString *)path
 {
     MHMimeType *mimeType = [MHMimeType new];
-    [mimeType setData:[[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]]];
-    [mimeType initData];
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
+    [mimeType parseWithData:data];
     
     return mimeType;
 }
 
-- (void)initData
+- (MHMimeTypeModel *)mimeTypeModelWithData:(NSData *)data
 {
+    return [self parseWithData:data];
+}
+
+- (MHMimeTypeModel *)mimeTypeModelWithURL:(NSURL *)url
+{
+    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    return [self parseWithData:data];
+}
+
+- (MHMimeTypeModel *)mimeTypeModelWithPath:(NSString *)path
+{
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
+    return [self parseWithData:data];
+}
+
+- (MHMimeTypeModel *)parseWithData:(NSData *)data
+{
+    if (!data) {
+        return nil;
+    }
+    
     UInt8 bytes[262];
-    [_data getBytes:&bytes length:262];
+    [data getBytes:&bytes length:262];
+    
+    self.currentMimeTypeModel = nil;
     for (MHMimeTypeModel *model in self.mimeTypeModelArray) {
         if (model.matchesBlock(bytes, model)) {
             self.currentMimeTypeModel = model;
-            return;
+            break;
         }
     }
     
-    self.currentMimeTypeModel = nil;
+    return self.currentMimeTypeModel;
 }
 
 - (NSArray<MHMimeTypeModel *> *)mimeTypeModelArray
