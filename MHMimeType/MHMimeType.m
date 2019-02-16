@@ -331,7 +331,7 @@
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/x-ms-wmv" ext:@"wmv" type:MHMimeTypeFileTypeWmv bytesCount:10  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
             return (bytes[0] == 0x30 && bytes[1] == 0x26 && bytes[2] == 0xB2 && bytes[3] == 0x75 &&
                     bytes[4] == 0x8E && bytes[5] == 0x66 && bytes[6] == 0xCF && bytes[7] == 0x11 &&
-                    bytes[7] == 0xA6 && bytes[7] == 0xD9);
+                    bytes[8] == 0xA6 && bytes[9] == 0xD9);
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/mpeg" ext:@"mpg" type:MHMimeTypeFileTypeMpg bytesCount:4  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
