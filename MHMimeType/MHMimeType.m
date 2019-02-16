@@ -153,13 +153,13 @@
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"image/x-canon-cr2" ext:@"cr2" type:MHMimeTypeFileTypeCr2 bytesCount:10  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-            return (bytes[0] == 0x49 && bytes[1] == 0x49 && bytes[2] == 0x2A && bytes[3] == 0x00)
-            || ((bytes[0] == 0x4D && bytes[1] == 0x4D && bytes[2] == 0x00 && bytes[3] == 0x2A) && (bytes[8] == 0x43 && bytes[9] == 0x52));
+            return ((bytes[0] == 0x49 && bytes[1] == 0x49 && bytes[2] == 0x2A && bytes[3] == 0x00)
+            || (bytes[0] == 0x4D && bytes[1] == 0x4D && bytes[2] == 0x00 && bytes[3] == 0x2A)) && (bytes[8] == 0x43 && bytes[9] == 0x52);
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"image/tiff" ext:@"tif" type:MHMimeTypeFileTypeTif bytesCount:4  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-            return (bytes[0] == 0x49 && bytes[1] == 0x49 && bytes[2] == 0x2A && bytes[3] == 0x00)
-            || (bytes[0] == 0x4D && bytes[1] == 0x4D && bytes[2] == 0x20 && bytes[3] == 0x2A);
+            return ((bytes[0] == 0x49 && bytes[1] == 0x49 && bytes[2] == 0x2A && bytes[3] == 0x00)
+                    || (bytes[0] == 0x4D && bytes[1] == 0x4D && bytes[2] == 0x00 && bytes[3] == 0x2A));
         }]];
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"image/bmp" ext:@"bmp" type:MHMimeTypeFileTypeBmp bytesCount:2  matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {

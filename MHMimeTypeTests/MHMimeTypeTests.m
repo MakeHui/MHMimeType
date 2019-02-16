@@ -28,9 +28,6 @@
 
 - (void)checkFileWithPath:(NSString *)path ext:(NSString *)ext
 {
-    if ([ext isEqualToString:@"wmv"]) {
-        NSLog(@"%@", @"wmv");
-    }
     MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithPath:[NSString stringWithFormat:@"file://%@", path]];
     NSLog(@"%@", [NSString stringWithFormat:@"file ext: %@", ext]);
     XCTAssertTrue([model.ext isEqualToString:ext], @"warn");
