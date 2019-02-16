@@ -15,26 +15,25 @@
 
 @implementation MHMimeTypeTests
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
 - (void)testExample {
-    NSString *path = @"file:///Users/imacbook/Desktop/tmp.mid";
-    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithPath:path];
-    
-    XCTAssertTrue([model.ext isEqualToString:@"mid"], @"not midi file.");
+    NSString *filesDir = @"/Users/imacbook/Developer/MHMimeType/MHMimeTypeTests/fixtures";
+    NSArray * dirArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filesDir error:nil];
+    for (NSString *file in dirArray) {
+        NSString *subPath = [filesDir stringByAppendingPathComponent:file];
+        NSArray *info = [file componentsSeparatedByString:@"."];
+        if (info.count != 2) continue;
+        [self checkFileWithPath:subPath ext:info[1]];
+    }
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)checkFileWithPath:(NSString *)path ext:(NSString *)ext
+{
+    if ([ext isEqualToString:@"wmv"]) {
+        NSLog(@"%@", @"wmv");
+    }
+    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithPath:[NSString stringWithFormat:@"file://%@", path]];
+    NSLog(@"%@", [NSString stringWithFormat:@"file ext: %@", ext]);
+    XCTAssertTrue([model.ext isEqualToString:ext], @"warn");
 }
 
 @end
