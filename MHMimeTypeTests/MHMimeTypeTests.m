@@ -33,6 +33,8 @@
         NSLog(@"%@", @"tif");
     }
     MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithPath:[NSString stringWithFormat:@"file://%@", path]];
+//    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithURL:URL];
+//    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithData:data];
     NSLog(@"%@", [NSString stringWithFormat:@"file ext: %@", ext]);
     XCTAssertTrue([model.ext isEqualToString:ext], @"warn");
 }

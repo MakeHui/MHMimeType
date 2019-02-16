@@ -33,10 +33,10 @@ Run `carthage update` to build the framework and drag the built `MHMimeType` int
 ```objc
 #import <MHMimeType/MHMimeType.h>
 
-NSString *url = @"file:///Users/ShungYin/Desktop/1.jpg";
-MHMimeTypeModel *model = [[MHMimeType initWithPath:url] currentMimeTypeModel];
-// MHMimeTypeModel *model = [[MHMimeType initWithData:data] currentMimeTypeModel];
-// MHMimeTypeModel *model = [[MHMimeType initWithURL:URL] currentMimeTypeModel];
+NSString *path = @"file:///Users/ShungYin/Desktop/1.jpg";
+MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithPath:[NSString stringWithFormat:@"file://%@", path]];
+//    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithURL:URL];
+//    MHMimeTypeModel *model = [[MHMimeType sharedInstance] mimeTypeModelWithData:data];
 
 NSLog(@"%@", model.mime);
 NSLog(@"%@", model.ext);
