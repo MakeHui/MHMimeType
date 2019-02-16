@@ -45,6 +45,8 @@
 
 @interface MHMimeType ()
 
+@property(nonatomic, strong)NSData *data;
+
 @property(nonatomic, strong)NSArray<MHMimeTypeModel *> *mimeTypeModelArray;
 
 @end
@@ -64,7 +66,8 @@
 + (instancetype)initWithData:(NSData *)data
 {
     MHMimeType *mimeType = [MHMimeType new];
-    [mimeType parseWithData:data];
+    mimeType.data = data;
+    [mimeType parse];
     
     return mimeType;
 }
@@ -72,8 +75,8 @@
 + (instancetype)initWithURL:(NSURL *)url
 {
     MHMimeType *mimeType = [MHMimeType new];
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    [mimeType parseWithData:data];
+    mimeType.data = [[NSData alloc] initWithContentsOfURL:url];
+    [mimeType parse];
     
     return mimeType;
 }
@@ -81,37 +84,37 @@
 + (instancetype)initWithPath:(NSString *)path
 {
     MHMimeType *mimeType = [MHMimeType new];
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
-    [mimeType parseWithData:data];
+    mimeType.data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
+    [mimeType parse];
     
     return mimeType;
 }
 
 - (MHMimeTypeModel *)mimeTypeModelWithData:(NSData *)data
 {
-    return [self parseWithData:data];
+    return [self parse];
 }
 
 - (MHMimeTypeModel *)mimeTypeModelWithURL:(NSURL *)url
 {
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    return [self parseWithData:data];
+    self.data = [[NSData alloc] initWithContentsOfURL:url];
+    return [self parse];
 }
 
 - (MHMimeTypeModel *)mimeTypeModelWithPath:(NSString *)path
 {
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
-    return [self parseWithData:data];
+    self.data = [[NSData alloc] initWithContentsOfURL:[[NSURL alloc] initWithString:path]];
+    return [self parse];
 }
 
-- (MHMimeTypeModel *)parseWithData:(NSData *)data
+- (MHMimeTypeModel *)parse
 {
-    if (!data) {
+    if (!self.data) {
         return nil;
     }
     
     UInt8 bytes[262];
-    [data getBytes:&bytes length:262];
+    [self.data getBytes:&bytes length:262];
     
     self.currentMimeTypeModel = nil;
     for (MHMimeTypeModel *model in self.mimeTypeModelArray) {
@@ -254,14 +257,66 @@
 
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/x-matroska" ext:@"mkv" type:MHMimeTypeFileTypeMkv bytesCount:4 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L327
-            return false;
+            if (! (bytes[0] == 0x1A && bytes[1] == 0x45 && bytes[2] == 0xDF && bytes[3] == 0xA3)) {
+                return false;
+            }
+            
+            NSInteger idPos = -1;
+            UInt8 _bytes[4100];
+            [self.data getBytes:&_bytes length:4100];
+            for (int i = 0; i < 4100; ++i) {
+                if (_bytes[i] == 0x42 &&  _bytes[i + 1] == 0x82) {
+                    idPos =  i;
+                    break;
+                }
+            }
+            
+            if (idPos <= -1) {
+                return false;
+            }
+            
+            NSInteger docTypePos = idPos + 3;
+            NSString *type = @"matroska";
+            for (int i = 0; i < type.length; ++i) {
+                unichar scalars = [type characterAtIndex:i];
+                if (_bytes[docTypePos + i] != scalars) {
+                    return false;
+                }
+            }
+            
+            return true;
         }]];
 
         
         [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"video/webm" ext:@"webm" type:MHMimeTypeFileTypeWebm bytesCount:4 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
-#warning Swift to Objc https://github.com/sendyhalim/Swime/blob/master/Sources/MimeType.swift#L368
-            return false;
+            if (! (bytes[0] == 0x1A && bytes[1] == 0x45 && bytes[2] == 0xDF && bytes[3] == 0xA3)) {
+                return false;
+            }
+            
+            NSInteger idPos = -1;
+            UInt8 _bytes[4100];
+            [self.data getBytes:&_bytes length:4100];
+            for (int i = 0; i < 4100; ++i) {
+                if (_bytes[i] == 0x42 &&  _bytes[i + 1] == 0x82) {
+                    idPos =  i;
+                    break;
+                }
+            }
+            
+            if (idPos <= -1) {
+                return false;
+            }
+            
+            NSInteger docTypePos = idPos + 3;
+            NSString *type = @"webm";
+            for (int i = 0; i < type.length; ++i) {
+                unichar scalars = [type characterAtIndex:i];
+                if (_bytes[docTypePos + i] != scalars) {
+                    return false;
+                }
+            }
+            
+            return true;
         }]];
 
         
