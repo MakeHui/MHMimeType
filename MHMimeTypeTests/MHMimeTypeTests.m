@@ -27,6 +27,19 @@
     }
 }
 
+- (void)testData
+{
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(150, 150), NO, 0.0);
+    UIImage *blankImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    MHMimeTypeModel *pngModel = [[MHMimeType sharedInstance] mimeTypeModelWithData:UIImagePNGRepresentation(blankImage)];
+    XCTAssertTrue([pngModel.ext isEqualToString:@"png"], @"warn");
+    
+    MHMimeTypeModel *jpegModel = [[MHMimeType sharedInstance] mimeTypeModelWithData:UIImageJPEGRepresentation(blankImage, 0.8)];
+    XCTAssertTrue([jpegModel.ext isEqualToString:@"jpg"], @"warn");
+}
+
 - (void)checkFileWithPath:(NSString *)path ext:(NSString *)ext
 {
     if ([ext isEqualToString:@"tif"]) {
