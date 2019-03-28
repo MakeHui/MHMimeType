@@ -92,6 +92,7 @@
 
 - (MHMimeTypeModel *)mimeTypeModelWithData:(NSData *)data
 {
+    self.data = data;
     return [self parse];
 }
 
