@@ -137,7 +137,7 @@
             return (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF);
         }]];
         
-        [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"image/png" ext:@"png" type:MHMimeTypeFileTypePng bytesCount:3 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
+        [array addObject:[[MHMimeTypeModel alloc] initWithMime:@"image/png" ext:@"png" type:MHMimeTypeFileTypePng bytesCount:4 matchesBlock:^BOOL(UInt8 *bytes, MHMimeTypeModel *model) {
             return (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47);
         }]];
         
